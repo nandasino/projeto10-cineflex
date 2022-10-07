@@ -10,7 +10,8 @@ const DivNavbar= styled.div`
     width: 100%;
     height: 67px;
     background: #C3CFD9;
-    positon:fixed;
+    position:fixed;
+    z-index:1;
     display:flex;
     justify-content:center;
     align-items:center;
