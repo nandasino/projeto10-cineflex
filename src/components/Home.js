@@ -34,7 +34,7 @@ export default function Home(){
         <DivHOme>
             <h1>Selecione o filme</h1>
             <ContainerFilmes>
-            {filmes.map((f) => <Banner key={f.id} img={f.posterURL}/>)}            
+            {filmes.map((filme) => <Banner key={filme.id} filme={filme}/>)}            
             </ContainerFilmes>
         </DivHOme>
     )

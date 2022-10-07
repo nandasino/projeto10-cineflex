@@ -12,6 +12,8 @@ const DivNavbar= styled.div`
     background: #C3CFD9;
     position:fixed;
     z-index:1;
+    top:0px;
+    left:0px;
     display:flex;
     justify-content:center;
     align-items:center;

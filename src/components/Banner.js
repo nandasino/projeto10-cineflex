@@ -1,9 +1,12 @@
 import styled from "styled-components"
-export default function Banner({img}){
+import { Link } from "react-router-dom"
+export default function Banner({filme}){
     return(
+        <Link to={`/sessoes/${filme.id}`}>
         <DivBanner>
-            <img src={img} />
+            <img src={filme.posterURL} />
         </DivBanner>
+        </Link>
     )
 }
 const DivBanner= styled.div`
