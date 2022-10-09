@@ -5,7 +5,7 @@ export default function Sessoes({dia,data,horarios}){
     return(
         <DivDia>
             <p>{dia}-{data}</p>
-            <Horarios>{horarios.map((h)=><button>{h.name}</button>)}</Horarios>
+            <Horarios>{horarios.map((h)=><Link to={`/assentos/${h.id}`}><button>{h.name}</button></Link>)}</Horarios>
         </DivDia>
     )
 }
