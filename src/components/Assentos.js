@@ -76,6 +76,7 @@ export default function Assentos(){
         const horario= infoFilme.name;
         const data= infoFilme.day.date;
         const dia= infoFilme.day.weekday;
+        const filme= infoFilme.movie.title;
         const body = {ids,name,cpf}
         console.log(body);
         const promise = axios.post(URL, body)
@@ -91,6 +92,7 @@ export default function Assentos(){
               horario,
               data,
               dia,
+              filme,
             },
           });
         })
