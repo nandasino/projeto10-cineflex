@@ -11,7 +11,7 @@ export default function Home(){
         const promise = axios.get(URL)
     
         promise.then((res) => {
-          console.log(res.data)
+          //console.log(res.data)
           setFilmes(res.data)
         })
     

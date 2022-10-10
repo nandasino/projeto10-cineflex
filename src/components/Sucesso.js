@@ -11,20 +11,20 @@ export default function Sucesso() {
         </Mensagem>
         <Filme>
           <h1>Filme e sessão</h1>
-          <p>{location.state.filme}</p>
-          <p>{location.state.data} - {location.state.horario}</p>
+          <p data-identifier="movie-session-infos-reserve-finished">{location.state.filme}</p>
+          <p data-identifier="movie-session-infos-reserve-finished">{location.state.data} - {location.state.horario}</p>
         </Filme>
         <Ingressos>
           <h1>Ingressos</h1>
           {location.state.nomes.map((value) => (
-          <AssentoDiv>Assento: {value}</AssentoDiv>
+          <AssentoDiv data-identifier="seat-infos-reserve-finished">Assento: {value}</AssentoDiv>
           ))}
         </Ingressos>
-        <Comprador>
+        <Comprador data-identifier="buyer-infos-reserve-finished">
           <h1>Comprador</h1>
           Nome: {location.state.name} - CPF:{location.state.cpf}
         </Comprador> 
-        <Link to={`/`}><button>Voltar pra Home</button></Link>       
+        <Link to={`/`}><button data-identifier="back-to-home-btn">Voltar pra Home</button></Link>       
       </DivSucesso>
     );
   }

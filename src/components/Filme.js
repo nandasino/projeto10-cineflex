@@ -38,8 +38,8 @@ export default function Filme(){
             </ContainerSessao>
         </DivSessao>
         <Footer>
-            <img src={filme.posterURL}/>
-            <p>{filme.title}</p>
+            <DivBanner data-identifier="movie-img-preview"><img src={filme.posterURL}/></DivBanner>
+            <p data-identifier="movie-and-session-infos-preview">{filme.title}</p>
         </Footer>
         </>
     )
@@ -74,12 +74,6 @@ const Footer=styled.div`
     height: 117px;
     background: #C3CFD9;
     align-items:center;
-
-    img{
-        width: 48px;
-        height: 72px;
-        padding-left:20px;
-    }
     p{
         color: #293845;
         font-family: 'Roboto'!important;
@@ -87,5 +81,20 @@ const Footer=styled.div`
         font-weight: 400;
         font-size: 26px;
         margin-left:30px;
+    }
+`
+const DivBanner=styled.div`
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 89px;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    margin-left:20px;
+    img{
+        width: 48px;
+        height: 72px;
     }
 `

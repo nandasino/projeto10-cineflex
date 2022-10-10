@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom"
 function Assento({ assento, selecionaAssento }) {
   return (
     <>
-      <AssentoStyle
+      <AssentoStyle data-identifier="seat"
         className={`${assento.isAvailable ? "" : "unavailable"} ${
           assento.selected ? "selected" : ""
         }`}
@@ -36,7 +36,7 @@ export default function Assentos(){
         promise.then((res) => {
           setAssentos(res.data.seats)
           setInfoFilme(res.data)
-          console.log(res.data)
+          //console.log(res.data)
         })
     
         promise.catch((err) => {
@@ -66,7 +66,7 @@ export default function Assentos(){
         setAssentosSelecionados([...assentosSelecionados, assento]);
         return;
       }
-      console.log(assentosSelecionados);
+      //console.log(assentosSelecionados);
       
       function reservaLugares(e){
         e.preventDefault()
@@ -78,11 +78,11 @@ export default function Assentos(){
         const dia= infoFilme.day.weekday;
         const filme= infoFilme.movie.title;
         const body = {ids,name,cpf}
-        console.log(body);
+        //console.log(body);
         const promise = axios.post(URL, body)
         
         promise.then(() => {
-          alert("Lugares Reservados")
+          //alert("Lugares Reservados")
           // mudar de página
           navigate('/sucesso', {
             state: {
@@ -111,14 +111,15 @@ export default function Assentos(){
                 {assentos.map((a)=><Assento key={a.id} assento={a} selecionaAssento={selecionaAssento}/>)}
             </ConteinerAssentos>
             <DivLegenda>
-              <Legenda><AssentoStyle className="selected"></AssentoStyle><p>Selecionado</p></Legenda>
-              <Legenda><AssentoStyle></AssentoStyle><p>Disponível</p></Legenda>
-              <Legenda><AssentoStyle className="unavailable"></AssentoStyle><p>Indisponível</p></Legenda>
+              <Legenda data-identifier="seat-selected-subtitle"><AssentoStyle className="selected"></AssentoStyle><p>Selecionado</p></Legenda>
+              <Legenda data-identifier="seat-available-subtitle"><AssentoStyle></AssentoStyle><p>Disponível</p></Legenda>
+              <Legenda data-identifier="seat-unavailable-subtitle"><AssentoStyle className="unavailable"></AssentoStyle><p>Indisponível</p></Legenda>
             </DivLegenda>
         <form onSubmit={reservaLugares}>
           <DivImput>
             <label htmlFor="name" className="title">Nome do comprador:</label>
             <input
+              data-identifier="buyer-name-input"
               placeholder="Digite seu nome..."
               id="name"
               value={name}
@@ -130,6 +131,7 @@ export default function Assentos(){
           <DivImput>
             <label htmlFor="cpf" className="title">CPF do comprador:</label>
             <input 
+              data-identifier="buyer-cpf-input"
               placeholder="Digite seu CPF..."
               id="description"
               value={cpf}
@@ -138,14 +140,14 @@ export default function Assentos(){
               required
             />
           </DivImput>   
-          <button type="submit">Reservar assento(s)</button>        
+          <button data-identifier="reservation-btn" type="submit">Reservar assento(s)</button>        
         </form>
         </DivAssentos>
         <Footer>
-            <img src={infoFilme? infoFilme.movie.posterURL: ""}/>
+          <DivBanner><img src={infoFilme? infoFilme.movie.posterURL: ""}/></DivBanner>
             <DivInfoSessao>
-              <p>{infoFilme? infoFilme.movie.title: ""}</p>
-              <p>{infoFilme? `${infoFilme.day.weekday} - ${infoFilme.name}` : ""}</p>
+              <p data-identifier="movie-and-session-infos-preview">{infoFilme? infoFilme.movie.title: ""}</p>
+              <p data-identifier="movie-and-session-infos-preview">{infoFilme? `${infoFilme.day.weekday} - ${infoFilme.name}` : ""}</p>
             </DivInfoSessao>
         </Footer>
         </>
@@ -275,11 +277,6 @@ const Footer=styled.div`
     background: #C3CFD9;
     align-items:center;
 
-    img{
-        width: 48px;
-        height: 72px;
-        padding-left:20px;
-    }
     p{
         color: #293845;
         font-family: 'Roboto'!important;
@@ -288,6 +285,21 @@ const Footer=styled.div`
         font-size: 26px;
         margin-left:30px;
         margin-top:5px;
+    }
+`
+const DivBanner=styled.div`
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 89px;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    margin-left:20px;
+    img{
+        width: 48px;
+        height: 72px;
     }
 `
 const DivInfoSessao= styled.div`

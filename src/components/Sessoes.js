@@ -4,8 +4,8 @@ import { Link } from "react-router-dom"
 export default function Sessoes({dia,data,horarios}){
     return(
         <DivDia>
-            <p>{dia}-{data}</p>
-            <Horarios>{horarios.map((h)=><Link to={`/assentos/${h.id}`}><button>{h.name}</button></Link>)}</Horarios>
+            <p data-identifier="session-date">{dia}-{data}</p>
+            <Horarios>{horarios.map((h)=><Link to={`/assentos/${h.id}`}><button data-identifier="hour-minute-btn">{h.name}</button></Link>)}</Horarios>
         </DivDia>
     )
 }
