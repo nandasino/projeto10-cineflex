@@ -6,7 +6,7 @@ export default function Sucesso() {
     return (
       <>
         <NomeDiv>
-          Nome: {location.state.name} - CPF:{location.state.cpf}
+          Nome: {location.state.name} - CPF:{location.state.cpf}-DIA: {location.state.dia}-DATA: {location.state.data}-HORARIO:{location.state.horario}
         </NomeDiv>
         {location.state.nomes.map((value) => (
           <AssentoDiv>Assento: {value}</AssentoDiv>

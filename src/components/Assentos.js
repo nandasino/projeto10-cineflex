@@ -23,17 +23,19 @@ function Assento({ assento, selecionaAssento }) {
 export default function Assentos(){
     const [name, setName] = useState("");
 	  const [cpf, setCpf] = useState("");
-    const navigate = useNavigate()
-    const [assentos, setAssentos] = useState(undefined)
+    const navigate = useNavigate();
+    const [infoFilme,setInfoFilme]= useState(undefined);
+    const [assentos, setAssentos] = useState(undefined);
     const [assentosSelecionados, setAssentosSelecionados] = useState([]);
-    const [error, setError] = useState(false) 
-    const { horariosId } = useParams()
+    const [error, setError] = useState(false); 
+    const { horariosId } = useParams();
     
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${horariosId}/seats`)
     
         promise.then((res) => {
           setAssentos(res.data.seats)
+          setInfoFilme(res.data)
           console.log(res.data)
         })
     
@@ -71,6 +73,9 @@ export default function Assentos(){
         const URL = "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many"
         const ids= assentosSelecionados.map((value)=>value.id)
         const nomes= assentosSelecionados.map((value)=>value.name)
+        const horario= infoFilme.name;
+        const data= infoFilme.day.date;
+        const dia= infoFilme.day.weekday;
         const body = {ids,name,cpf}
         console.log(body);
         const promise = axios.post(URL, body)
@@ -83,6 +88,9 @@ export default function Assentos(){
               name,
               cpf,
               nomes,
+              horario,
+              data,
+              dia,
             },
           });
         })
@@ -94,6 +102,7 @@ export default function Assentos(){
       }
 
       return(
+        <>
         <DivAssentos>
             <h1>Selecione o(s) assento(s)</h1>
             <ConteinerAssentos>
@@ -123,6 +132,12 @@ export default function Assentos(){
           <button type="submit">Reservar assento(s)</button>        
         </form>
         </DivAssentos>
+        <Footer>
+            <img src={infoFilme? infoFilme.movie.posterURL: ""}/>
+            <p>{infoFilme? infoFilme.movie.title: ""}</p>
+            <p>{infoFilme? `${infoFilme.day.weekday} - ${infoFilme.name}` : ""}</p>
+        </Footer>
+        </>
       )
 } 
 const DivAssentos=styled.div`
@@ -174,4 +189,29 @@ const AssentoStyle= styled.div`
 `
 const DivImput= styled.div`
     width:100%;
+`
+const Footer=styled.div`
+    width:100%;
+    display:flex;
+    position:fixed;
+    z-index:1;
+    bottom:0;
+    left:0;
+    height: 117px;
+    background: #C3CFD9;
+    align-items:center;
+
+    img{
+        width: 48px;
+        height: 72px;
+        padding-left:20px;
+    }
+    p{
+        color: #293845;
+        font-family: 'Roboto'!important;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 26px;
+        margin-left:30px;
+    }
 `
