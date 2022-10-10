@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import axios from "axios"
 import styled from "styled-components"
+import { useNavigate } from "react-router-dom"
+
 
 function Assento({ assento, selecionaAssento }) {
   return (
@@ -19,6 +21,9 @@ function Assento({ assento, selecionaAssento }) {
 }
 
 export default function Assentos(){
+    const [name, setName] = useState("");
+	  const [cpf, setCpf] = useState("");
+    const navigate = useNavigate()
     const [assentos, setAssentos] = useState(undefined)
     const [assentosSelecionados, setAssentosSelecionados] = useState([]);
     const [error, setError] = useState(false) 
@@ -60,12 +65,56 @@ export default function Assentos(){
         return;
       }
       console.log(assentosSelecionados);
+      
+      function reservaLugares(e){
+        e.preventDefault()
+        const URL = "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many"
+        const ids= assentosSelecionados.map((value)=>value.id)
+        const body = {ids,name,cpf}
+        console.log(body);
+        const promise = axios.post(URL, body)
+        
+        promise.then(() => {
+          alert("Lugares Reservados")
+          // mudar de página
+          navigate("/")
+        })
+    
+        promise.catch((err) => {
+          alert(err.response.data.mensagem)
+        })        
+
+      }
+
       return(
         <DivAssentos>
             <h1>Selecione o(s) assento(s)</h1>
             <ConteinerAssentos>
                 {assentos.map((a)=><Assento key={a.id} assento={a} selecionaAssento={selecionaAssento}/>)}
             </ConteinerAssentos>
+        <form onSubmit={reservaLugares}>
+          <DivImput>
+            <label htmlFor="name" className="title">Nome do comprador:</label>
+            <input
+              id="name"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              type="text"
+              required
+            />
+          </DivImput>
+          <DivImput>
+            <label htmlFor="cpf" className="title">CPF do comprador:</label>
+            <input 
+              id="description"
+              value={cpf}
+              onChange={e => setCpf(e.target.value)}
+              type="number"
+              required
+            />
+          </DivImput>   
+          <button type="submit">Reservar assento(s)</button>        
+        </form>
         </DivAssentos>
       )
 } 
@@ -115,4 +164,7 @@ const AssentoStyle= styled.div`
       background-color: #FBE192;
       border-color: #F7C52B;
     }
+`
+const DivImput= styled.div`
+    width:100%;
 `
