@@ -70,6 +70,7 @@ export default function Assentos(){
         e.preventDefault()
         const URL = "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many"
         const ids= assentosSelecionados.map((value)=>value.id)
+        const nomes= assentosSelecionados.map((value)=>value.name)
         const body = {ids,name,cpf}
         console.log(body);
         const promise = axios.post(URL, body)
@@ -77,7 +78,13 @@ export default function Assentos(){
         promise.then(() => {
           alert("Lugares Reservados")
           // mudar de página
-          navigate("/")
+          navigate('/sucesso', {
+            state: {
+              name,
+              cpf,
+              nomes,
+            },
+          });
         })
     
         promise.catch((err) => {
