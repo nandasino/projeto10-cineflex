@@ -108,10 +108,16 @@ export default function Assentos(){
             <ConteinerAssentos>
                 {assentos.map((a)=><Assento key={a.id} assento={a} selecionaAssento={selecionaAssento}/>)}
             </ConteinerAssentos>
+            <DivLegenda>
+              <Legenda><AssentoStyle className="selected"></AssentoStyle><p>Selecionado</p></Legenda>
+              <Legenda><AssentoStyle></AssentoStyle><p>Disponível</p></Legenda>
+              <Legenda><AssentoStyle className="unavailable"></AssentoStyle><p>Indisponível</p></Legenda>
+            </DivLegenda>
         <form onSubmit={reservaLugares}>
           <DivImput>
             <label htmlFor="name" className="title">Nome do comprador:</label>
             <input
+              placeholder="Digite seu nome..."
               id="name"
               value={name}
               onChange={e => setName(e.target.value)}
@@ -122,6 +128,7 @@ export default function Assentos(){
           <DivImput>
             <label htmlFor="cpf" className="title">CPF do comprador:</label>
             <input 
+              placeholder="Digite seu CPF..."
               id="description"
               value={cpf}
               onChange={e => setCpf(e.target.value)}
@@ -134,8 +141,10 @@ export default function Assentos(){
         </DivAssentos>
         <Footer>
             <img src={infoFilme? infoFilme.movie.posterURL: ""}/>
-            <p>{infoFilme? infoFilme.movie.title: ""}</p>
-            <p>{infoFilme? `${infoFilme.day.weekday} - ${infoFilme.name}` : ""}</p>
+            <DivInfoSessao>
+              <p>{infoFilme? infoFilme.movie.title: ""}</p>
+              <p>{infoFilme? `${infoFilme.day.weekday} - ${infoFilme.name}` : ""}</p>
+            </DivInfoSessao>
         </Footer>
         </>
       )
@@ -144,7 +153,7 @@ const DivAssentos=styled.div`
     display:flex;
     width:100%;
     flex-direction: column;
-    align-items:center;
+    align-items: center;
     margin-bottom:117px;
     h1{
         margin-top:107px;
@@ -154,6 +163,25 @@ const DivAssentos=styled.div`
         font-weight: 400;
         font-size: 24px;
         color: #293845;
+    }
+    button{   
+      width: 225px;
+      height: 42px;
+      background: #E8833A;
+      border-radius: 3px;
+      border:none;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      color: #FFFFFF;
+      margin-top:50px;
+      margin-bottom:30px;
+    }
+    form{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
     }
 `
 
@@ -172,23 +200,67 @@ const AssentoStyle= styled.div`
     align-items: center;
     cursor: pointer;
     background-color: #C3CFD9;
+    border: 1px solid #808F9D;
     margin:5px;
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 11px;
+    color: #000000;
 
     &.selected {
         background-color: #1AAE9E;
+        border: 1px solid #0E7D71;
       }
 
     &.unavailable {
       background-color: #FBE192;
       border-color: #F7C52B;
     }
+` 
+const DivLegenda=styled.div`
+    display:flex;
+    width:300px;   
+    margin-top:5px;
+    margin-bottom:50px;
+    justify-content:space-around;
+    align-items: center;
+`
+const Legenda=styled.div`
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items: center;
+    color: #4E5A65;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
 `
 const DivImput= styled.div`
-    width:100%;
+    width:320px;
+    display:flex;
+    flex-direction:column;
+    margin-top:5px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    color: #293845;
+
+    input{
+      width:100%;
+      height: 40px;
+      background: #FFFFFF;
+      border: 1px solid #D5D5D5;
+      border-radius: 3px;
+      font-family: 'Roboto';
+      font-style: italic;
+      font-weight: 400;
+      font-size: 18px;
+      color: #AFAFAF;
+    }
+    
 `
 const Footer=styled.div`
     width:100%;
@@ -213,5 +285,10 @@ const Footer=styled.div`
         font-weight: 400;
         font-size: 26px;
         margin-left:30px;
+        margin-top:5px;
     }
+`
+const DivInfoSessao= styled.div`
+    display:flex;
+    flex-direction: column;
 `
