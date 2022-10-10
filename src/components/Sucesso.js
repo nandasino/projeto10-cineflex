@@ -60,6 +60,7 @@ const DivSucesso=styled.div`
     font-weight: 400;
     font-size: 18px;
     margin-top:50px;
+    cursor:pointer;
   }
 `
 const Mensagem=styled.div`

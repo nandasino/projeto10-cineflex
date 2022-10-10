@@ -181,6 +181,7 @@ const DivAssentos=styled.div`
       color: #FFFFFF;
       margin-top:50px;
       margin-bottom:30px;
+      cursor:pointer;
     }
     form{
       display:flex;

@@ -38,5 +38,6 @@ const Horarios= styled.div`
         font-style: normal;
         font-weight: 400;
         font-size: 18px;
+        cursor:pointer;
     }
 `
